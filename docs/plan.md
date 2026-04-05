@@ -110,21 +110,24 @@ Git-Probe is a version-controlled MTG collection manager designed for AI interac
 - Keeps options open (formats may change)
 
 ### External APIs
-- **Scryfall:** Card data on demand (prices, legality, oracle text)
+- **Scryfall:** Card data on demand (prices, legality, oracle text, advanced search)
 - **No caching in MVP:** Keep it simple
 - **Copilot handles curl:** No API client library needed yet
 
 **Why Scryfall?**
 - Free, comprehensive API
-- Well-documented
+- Well-documented with powerful search syntax
 - No API key needed
 - Active community
+- Supports advanced filtering (price, legality, oracle text, etc.)
 
 **Why no caching?**
 - Premature optimization
 - API is fast enough
 - Prices change anyway
 - Build it if it becomes a problem
+
+**See:** `docs/scryfall.md` for deck building workflows
 
 ### Git Workflow
 - **Everything tracked:** Collection updates, deck changes, documentation
