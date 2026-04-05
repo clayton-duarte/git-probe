@@ -1,0 +1,117 @@
+{
+  "name": "git-probe",
+  "displayName": "Git-Probe",
+  "description": "AI-augmented MTG collection manager with deck building, Scryfall integration, and collection tracking",
+  "version": "0.1.0",
+  "publisher": "git-probe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claytonduarte/git-probe"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "magic the gathering",
+    "mtg",
+    "deck building",
+    "scryfall",
+    "collection manager"
+  ],
+  "activationEvents": [
+    "onLanguage:mtg",
+    "workspaceContains:**/*.mtg",
+    "workspaceContains:ManaBox_Collection.csv"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mtg",
+        "extensions": [".mtg"],
+        "aliases": ["MTG Deck", "mtg"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mtg",
+        "scopeName": "source.mtg",
+        "path": "./syntaxes/mtg.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "git-probe.searchCards",
+        "title": "Search for Cards",
+        "category": "Git-Probe"
+      },
+      {
+        "command": "git-probe.refreshCollection",
+        "title": "Refresh Collection Index",
+        "category": "Git-Probe"
+      }
+    ],
+    "configuration": {
+      "title": "Git-Probe",
+      "properties": {
+        "git-probe.collectionPath": {
+          "type": "string",
+          "default": "${workspaceFolder}/ManaBox_Collection.csv",
+          "description": "Path to your ManaBox collection CSV file"
+        },
+        "git-probe.enableCollectionCheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show ownership status in card previews"
+        },
+        "git-probe.showInlineOwnership": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show ownership markers inline next to card names"
+        },
+        "git-probe.enablePriceTracking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-update price comments in deck files"
+        },
+        "git-probe.defaultCurrency": {
+          "type": "string",
+          "enum": ["usd", "eur", "tix"],
+          "default": "usd",
+          "description": "Preferred currency for prices"
+        },
+        "git-probe.cacheExpiry": {
+          "type": "number",
+          "default": 86400,
+          "description": "Card data cache expiry time in seconds (24 hours)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "dev": "tsup --watch --sourcemap",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {}
+}

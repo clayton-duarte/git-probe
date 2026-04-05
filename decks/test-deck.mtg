@@ -1,0 +1,22 @@
+---
+name: "Test Deck"
+commander: "Test Commander"
+format: "Commander"
+colors: ["R", "G"]
+budget: 50
+---
+
+// Commander
+1 Test Commander
+
+// Maindeck
+4 Lightning Bolt  # $0.50 - Classic removal
+1 Sol Ring       # $2.00 - Fast mana
+20 Mountain      # Basics
+20 Forest        # More basics
+
+// Sideboard
+3 Ancient Grudge  # Artifact hate
+
+// TODO: Need more card draw
+// Search: o:"draw" id<=rg usd<3;

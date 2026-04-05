@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "MTG Deck",
+  "scopeName": "source.mtg",
+  "patterns": [
+    {
+      "include": "#frontmatter"
+    },
+    {
+      "include": "#sections"
+    },
+    {
+      "include": "#cardlines"
+    },
+    {
+      "include": "#comments"
+    }
+  ],
+  "repository": {
+    "frontmatter": {
+      "name": "meta.frontmatter.mtg",
+      "begin": "\\A---$",
+      "end": "^---$",
+      "contentName": "source.yaml",
+      "patterns": [
+        {
+          "include": "source.yaml"
+        }
+      ]
+    },
+    "sections": {
+      "name": "markup.heading.mtg",
+      "begin": "^\\/\\/",
+      "end": "$",
+      "patterns": [
+        {
+          "name": "meta.search.mtg",
+          "begin": "Search:",
+          "end": "(;|$)",
+          "patterns": [
+            {
+              "match": "(-{0,1})([^; \\n()]+?)(:|=|>=|<=|<|>)((?:\"[^\"]*\")|(?:\\/[^\\/]*\\/)|(?:'[^']*')|(?:[^; \\n\"'\\/()]*))",
+              "captures": {
+                "1": {
+                  "name": "keyword.operator.mtg"
+                },
+                "2": {
+                  "name": "variable.parameter.mtg"
+                },
+                "3": {
+                  "name": "keyword.operator.mtg"
+                },
+                "4": {
+                  "name": "string.unquoted.mtg"
+                }
+              }
+            },
+            {
+              "match": " (or|OR) ",
+              "captures": {
+                "1": {
+                  "name": "keyword.operator.mtg"
+                }
+              }
+            },
+            {
+              "match": "(\\(|\\))",
+              "captures": {
+                "1": {
+                  "name": "keyword.control.mtg"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "entity.name.section.mtg",
+          "match": "\\s+(.+)$",
+          "captures": {
+            "1": {
+              "name": "entity.name.section.mtg"
+            }
+          }
+        }
+      ]
+    },
+    "cardlines": {
+      "name": "meta.cardline.mtg",
+      "match": "^(\\d+)\\s+([^#\\n]+?)(?:\\s+(#.*))?$",
+      "captures": {
+        "1": {
+          "name": "constant.numeric.quantity.mtg"
+        },
+        "2": {
+          "name": "entity.name.card.mtg",
+          "patterns": [
+            {
+              "match": "\\/\\/",
+              "name": "keyword.operator.doublefaced.mtg"
+            }
+          ]
+        },
+        "3": {
+          "name": "comment.line.mtg"
+        }
+      }
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.mtg",
+          "begin": "^\\/\\/(?!\\s)",
+          "end": "$"
+        },
+        {
+          "name": "comment.line.hash.mtg",
+          "begin": "#",
+          "end": "$"
+        }
+      ]
+    }
+  }
+}

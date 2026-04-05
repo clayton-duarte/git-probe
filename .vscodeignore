@@ -1,0 +1,15 @@
+.vscode/**
+.vscode-test/**
+.reference/**
+src/**
+.gitignore
+.eslintrc.json
+tsconfig.json
+tsup.config.ts
+*.md
+!README.md
+docs/**
+decks/**
+ManaBox_Collection.csv
+node_modules/**
+.DS_Store

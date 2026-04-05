@@ -106,6 +106,57 @@ File-based search results (not webview panels) for AI-friendliness, git-trackabi
 
 See [`docs/extension-plan.md`](docs/extension-plan.md) for complete specification and implementation plan.
 
+## Development
+
+**Extension Development:**
+
+This repository is both a Git-Probe project AND the VSCode extension (monorepo approach).
+
+**Setup:**
+```bash
+npm install          # Install dependencies
+npm run build        # Build extension
+npm run watch        # Build and watch for changes
+```
+
+**Testing locally:**
+1. Open this repository in VSCode
+2. Press F5 or Run > Start Debugging
+3. A new VSCode window opens with the extension loaded
+4. Open any `.mtg` file to test syntax highlighting
+5. Try commands: `Cmd+Shift+P` → "Git-Probe: Search for Cards"
+
+**Project Structure:**
+```
+git-probe/
+├── src/                    # Extension source code
+│   ├── extension.ts        # Entry point
+│   ├── providers/          # Hover, completion, etc.
+│   ├── commands/           # Command implementations
+│   ├── services/           # Scryfall, collection manager
+│   └── parsers/            # Deck file parsing
+├── syntaxes/               # TextMate grammar for .mtg files
+├── .reference/mtg-code/    # Reference implementation (not committed)
+├── decks/                  # Example decks + your decks
+└── docs/                   # User documentation
+```
+
+**Reference Code:**
+
+The `.reference/mtg-code/` folder contains the original mtg-code extension for reference. Use it as inspiration for:
+- Hover provider implementation
+- Scryfall API integration
+- TextMate grammar patterns
+- Card autocomplete logic
+
+**Iteration Workflow:**
+
+1. Make changes to `src/` files
+2. Extension auto-rebuilds (if watch is running)
+3. Reload extension window: `Cmd+R` in Extension Development Host
+4. Test changes immediately
+5. Commit when feature works
+
 ## Contributing
 
 Deck ideas, DSL improvements, and automation scripts welcome! Follow semantic commit format: `<type>(<scope>): <message>`
