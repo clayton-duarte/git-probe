@@ -93,6 +93,7 @@ Git-Probe includes a VSCode extension (built on top of [mtg-code](https://github
 - **Hover providers** showing card images, oracle text, and prices from Scryfall
 - **Autocomplete** for card names based on workspace context and Scryfall database
 - **Collection markers** showing `[OWNED]` or `[NEED]` based on `ManaBox_Collection.csv`
+- **Inline ownership indicators** displaying ✅/❌ markers next to card names in the editor
 
 **Scryfall Integration:**
 - Run advanced Scryfall searches directly from command palette

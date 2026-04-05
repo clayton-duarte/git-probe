@@ -141,6 +141,36 @@ created: "2026-04-05"
 - Sort owned cards higher in list
 - Show quantity in completion detail
 
+**Inline ownership markers:**
+```mtg
+// Maindeck
+1 Academy Manufactor     ✅ (goods)     # Core token engine
+4 Storm-Kiln Artist      ❌ Need        # Treasure generation
+1 Anointed Procession    ✅ (main)      # Token doubler
+2 Beastmaster Ascension  ❌ Need        # Win condition
+```
+
+**Implementation:**
+- Use VSCode decorations API (inline hints)
+- Apply decorations after document parse
+- Index collection CSV on activation (name → quantity/location)
+- Update decorations on file change
+- Configurable (can disable if distracting)
+- Position: After card name, before comment
+
+**Visual styles:**
+- `✅ (binder-name)` - Owned (green text)
+- `❌ Need` - Not owned (red text)
+- `⚠️ Low (1)` - Owned but low quantity (yellow text)
+- Subtle opacity (0.6) to avoid clutter
+
+**Performance considerations:**
+- Index collection once on activation
+- Incremental updates on CSV file change
+- Debounce decoration updates (300ms)
+- Only apply to visible editor range
+- Use Map<string, CollectionEntry> for O(1) lookup
+
 #### 1.4 Price Tracking
 
 **Inline price display:**
@@ -563,6 +593,21 @@ Extension activates
   → Re-index on change
 ```
 
+**Inline Ownership Decorations:**
+```
+.mtg file opens or changes
+  → Parse document for card lines
+  → Extract card names
+  → Lookup each card in collection index (O(1))
+  → Create decoration for each card:
+    - ✅ (location) if owned
+    - ❌ Need if not owned
+    - ⚠️ Low (qty) if quantity < threshold
+  → Apply decorations to visible ranges only
+  → Debounce updates (300ms) for performance
+  → Re-apply on scroll, edit, or CSV change
+```
+
 ---Results Files (Week 4-5)
 - [ ] Create "Search Cards" command
 - [ ] Accept Scryfall query (natural language via Copilot)
@@ -584,9 +629,12 @@ Extension activates
 
 ### Phase 3: Collection Integration (Week 3)
 - [ ] Configuration for CSV path
-- [ ] Load and index collection
+- [ ] Load and index collection CSV (Map<cardName, {quantity, location}>)
 - [ ] Show ownership in hover
 - [ ] Mark owned cards in autocomplete
+- [ ] Implement inline ownership decorations
+- [ ] Apply decorations to visible ranges
+- [ ] Update decorations on document/CSV changes
 - [ ] Watch CSV for changes
 
 ### Phase 4: Search Panel (Week 4-5)
@@ -626,6 +674,11 @@ Extension activates
     "type": "boolean",
     "default": true,
     "description": "Show ownership status in card previews"
+  },
+  "git-probe-mtg.showInlineOwnership": {
+    "type": "boolean",
+    "default": true,
+    "description": "Show ownership markers inline next to card names"
   },
   "git-probe-mtg.enablePriceTracking": {
     "type": "boolean",
