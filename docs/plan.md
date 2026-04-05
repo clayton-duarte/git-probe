@@ -5,7 +5,9 @@
 
 ## What Is This?
 
-Git-Probe is a version-controlled MTG collection manager designed for AI interaction. Your collection lives in a CSV file, decks are markdown files, and everything is tracked in Git.
+**Git-Probe** is a version-controlled MTG collection manager designed for AI interaction. The name is a playful reference to [Gitaxian Probe](https://scryfall.com/card/nph/35/gitaxian-probe), the iconic MTG card that lets you "look at target player's hand" - here, you look at your collection and discover new cards via Git and Scryfall.
+
+Your collection lives in a CSV file, decks are markdown files, and everything is tracked in Git. The project includes a VSCode extension for enhanced deck editing and card discovery.
 
 ## Why These Choices?
 
