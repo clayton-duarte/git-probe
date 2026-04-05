@@ -1,8 +1,11 @@
+---
+applyTo: '**'
+---
+
 # Scryfall API Usage
 
-Use curl for on-demand card data. No caching in MVP.
-
-**Base URL:** `https://api.scryfall.com`
+**Base URL:** `https://api.scryfall.com`  
+**Method:** curl (no caching in MVP)
 
 ## Card Search
 

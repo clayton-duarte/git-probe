@@ -1,6 +1,8 @@
-# Export to Archidekt CSV Format
+---
+applyTo: '**'
+---
 
-Convert deck files to Archidekt CSV import format.
+# Export to Archidekt CSV Format
 
 ## CSV Structure
 

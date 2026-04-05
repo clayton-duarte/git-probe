@@ -4,8 +4,6 @@ applyTo: "decks/**/*.md"
 
 # Deck File Format
 
-Deck files are Markdown with YAML front matter.
-
 ## Structure
 
 ```yaml

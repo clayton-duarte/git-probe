@@ -64,108 +64,80 @@ Git-Probe is a version-controlled MTG collection manager designed for AI interac
 ### Data Formats
 
 **ManaBox CSV as Source-of-Truth**
-- Location: `ManaBox_Collection.csv` in repo root
-- User drops new export when collection updates
-- Read-only from Git-Probe's perspective
-- Never edit manually
-- Track changes via git commits: `chore(collection): update from ManaBox export on YYYY-MM-DD`
+- ManaBox app manages the collection
+- Export to CSV, drop in repo root
+- Git tracks collection changes over time
+- Copilot reads CSV to answer questions
 
-**ManaBox CSV Schema (17 Columns):**
-1. Binder Name
-2. Binder Type
-3. Name
-4. Set code
-5. Set name
-6. Collector number
-7. Foil (normal/foil)
-8. Rarity
-9. Quantity
-10. ManaBox ID
-11. Scryfall ID
-12. Purchase price
-13. Misprint (true/false)
-14. Altered (true/false)
-15. Condition (near_mint, lightly_played, etc.)
-16. Language (en, etc.)
-17.Key Decisions
+**Why CSV?**
+- Simple, universal format
+- No database to maintain
+- Git-friendly (can diff changes)
+- Works with any tool
 
 ### Collection Data
-- **Format:** ManaBox CSV export (17 columns)
-- **Location:** `ManaBox_Collection.csv` in repo root
-- **Updates:** User drops new export when collection changes
-- **Never edit CSV manually** - ManaBox is source of truth
-- **Track with git:** See collection changes over time
+- **Read-only:** Never edit CSV manually - ManaBox is source of truth
+- **Updates:** Export fresh CSV when collection changes
+- **Git tracking:** See what cards were added/removed over time
 
 ### Deck Format
-- **YAML front matter:** name, format, commander, colors
-- **Markdown sections:** `## Maindeck`, `## Sideboard`, `## Maybeboard`
-- **Card syntax:** `4x Lightning Bolt` (simple and clear)
-- **Comments allowed:** Use `#` for notes
-- **Multi-file option:** Complex decks can split into multiple .md files
+- **Markdown files:** Human readable, AI friendly, Git trackable
+- **YAML frontmatter:** Structured metadata (name, format, commander)
+- **Simple syntax:** `4x Lightning Bolt` - clear and parseable
+- **Flexible structure:** Support both simple and complex decks
+
+**Why Markdown?**
+- Easy to read and edit
+- Works in any text editor
+- Git shows meaningful diffs
+- Copilot understands it naturally
+
+**Why YAML frontmatter?**
+- Structured metadata without custom format
+- Standard practice in static sites
+- Easy to parse if we need automation later
 
 ### Exports
-- **Moxfield:** Text format (see `.github/instructions/`)
-- **Archidekt:** CSV format (see `.github/instructions/`)
-- **MVP:** Manual via Copilot
-- **Future:** Maybe scripts if frequently needed
+- **Moxfield:** Text format (Copilot can convert)
+- **Archidekt:** CSV format (Copilot can convert)
+- **Manual for MVP:** Learn the conversion patterns first
+- **Maybe automate later:** If we do it frequently enough
+
+**Why manual exports?**
+- Validates the deck format works
+- Discovers edge cases
+- Proves value before building tools
+- Keeps options open (formats may change)
 
 ### External APIs
-- **Scryfall:** On-demand via curl
-- **No caching** in MVP
-- **Copilot handles** the curl commands
-- Add automation later if needed
+- **Scryfall:** Card data on demand (prices, legality, oracle text)
+- **No caching in MVP:** Keep it simple
+- **Copilot handles curl:** No API client library needed yet
+
+**Why Scryfall?**
+- Free, comprehensive API
+- Well-documented
+- No API key needed
+- Active community
+
+**Why no caching?**
+- Premature optimization
+- API is fast enough
+- Prices change anyway
+- Build it if it becomes a problem
 
 ### Git Workflow
-- **Semantic commits:** `type(scope): message`
-- **Track everything:** Collection updates, deck changes
-- **Use git diff** to see what changed in collection
+- **Everything tracked:** Collection updates, deck changes, documentation
+- **Meaningful commits:** Semantic format helps understand history
+- **Git as timeline:** See how collection and decks evolve
 
-### Comments
+**Why track collection in Git?**
+- See what cards you added/removed over time
+- Revert accidental ManaBox mistakes
+- Historical record of your collection
+- Backup of collection data
 
-Inline comments for notes:
-```markdown
-## Maindeck
-4x Lightning Bolt  # Core removal
-3x Shock  # TODO: Consider replacing with Bolt
-```
-
-### Multi-File Decks
-
-For complex decks, use directory structure:
-```
-decks/deck-name/
-  main.md          # Required (front matter + maindeck)
-  sideboard.md     # Optional (additional cards)
-  maybeboard.md    # Optional (consideration list)
-```
-
-## Export Formats
-
-### Moxfield
-
-Text format, one card per line:
-```
-1 Card Name (SET) collector#
-```
-
-Commander section separate. See `docs/export-formats.md` for complete specification.
-
-### Archidekt
-
-CSV format with columns:
-- Quantity
-- Card Name
-- Edition
-- Condition
-- Language
-- Foil
-- Tags
-
-See `docs/export-formats.md` for complete specification.
-
-## Verification Checklist
-
-###Open Questions
+## Open Questions
 
 Things we're still figuring out:
 

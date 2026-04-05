@@ -4,7 +4,7 @@ applyTo: "ManaBox_Collection.csv"
 
 # Collection Query Patterns
 
-`ManaBox_Collection.csv` is a 17-column CSV export. **Never edit this file** - it's read-only, user-managed.
+**File:** `ManaBox_Collection.csv` (read-only, user-managed)
 
 ## CSV Schema
 

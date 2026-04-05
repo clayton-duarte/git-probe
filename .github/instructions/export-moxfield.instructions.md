@@ -1,6 +1,8 @@
-# Export to Moxfield Format
+---
+applyTo: '**'
+---
 
-Convert deck files to Moxfield text import format.
+# Export to Moxfield Format
 
 ## Format Structure
 
